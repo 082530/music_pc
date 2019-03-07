@@ -111,7 +111,7 @@ svg>*{
   width: 100%;
 }
 .ply>div:first-child{
-  filter: blur(5px);
+  filter: blur(90px);
   background-size: cover !important;
 }
 aside{
@@ -174,7 +174,7 @@ section>div>p{
   text-align: center;
   line-height: 35px;
   height: 35px;
-  color: #666666;
+  color: #ffffff;
 }
 section>div{
   position: relative;
