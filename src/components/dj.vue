@@ -1,5 +1,8 @@
 <template>
-  <div class="dt">
+  <div class="dt" v-loading="loading"
+       element-loading-text="拼命加载中"
+       element-loading-spinner="el-icon-loading"
+       :data="category" style="height: calc(100% - 61px)">
     <!--分类-->
     <div class="category">
       <ul>
@@ -24,13 +27,15 @@ export default {
       url: 'http://ruidong.cloudno.de',
       tj_list: '',
       jc_list: '',
-      category: ''
+      category: '',
+      loading: true
     }
   },
   beforeMount () {
     let that = this
     $.get(`${that.url}/dj/catelist`, function (data) {
       that.category = data.categories
+      that.loading = false
     })
   },
   methods: {

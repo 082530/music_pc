@@ -51,6 +51,11 @@ export default {
       activeIndex: '1',
       activeIndex2: '1'
     }
+  },
+  beforeCreate () {
+    if (parseInt(document.body.clientWidth) < 768) {
+      location.href = '/wap'
+    }
   }
 }
 </script>

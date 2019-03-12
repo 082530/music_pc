@@ -1,8 +1,5 @@
 <template>
-  <div class="album">
-    <div v-if="list.length==0" class="box">
-      <img src="../assets/loading.gif" alt="">
-    </div>
+  <div class="album" v-loading="fullscreenLoading" style="height: calc(100% - 61px)">
     <div class="info">
       <div>
         <img :src="img+'?param=225x225'" alt="">
@@ -72,7 +69,8 @@ export default {
       img: '',
       tags: '',
       h: '112px',
-      show: 1
+      show: 1,
+      fullscreenLoading: true
     }
   },
   filters: {
@@ -106,6 +104,7 @@ export default {
         that.description = playlist.description
         that.img = playlist.coverImgUrl
         that.tags = playlist.tags
+        that.fullscreenLoading = false
       }
     )
   }

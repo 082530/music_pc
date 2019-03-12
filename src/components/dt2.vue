@@ -1,5 +1,6 @@
 <template>
   <div class="dt2">
+    <h1 style="text-align: center;color: #009af3" v-show="djRadios.length===0">加载中稍等哒。。。</h1>
     <ul>
       <li v-for="item in djRadios">
         <router-link :to="{name:'dtDetail',params: {id:item.id}}">
@@ -32,6 +33,7 @@ export default {
   methods: {
     add () {
       let that = this
+      that.djRadios = null
       $.get(`${that.url}/dj/recommend/type?type=${that.dt_id}`, function (data) {
         that.djRadios = data.djRadios
       })

@@ -89,12 +89,13 @@ export default {
           this.$alert(`选择以下地址然后右键选择转到改地址进行播放或者下载<span style="user-select: all">${res.urls[0].url}</span>`, '播放失败', {
             // confirmButtonText: '确定',
             dangerouslyUseHTMLString: true
-            })
+          })
+        })
+        $.get(`${this.url}/video/detail?id=${id || this.id}`, res => {
+          this.data = res.data
+        })
       })
-      $.get(`${this.url}/video/detail?id=${id || this.id}`, res => {
-        this.data = res.data
-      })
-    })},
+    },
     allmv (id) { // 请求相关视频
       this.allList = null
       $.get(`${this.url}/related/allvideo?id=${id || this.id}`, res => {

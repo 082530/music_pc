@@ -1,6 +1,9 @@
 <template>
   <div class="bd">
-    <div>
+    <div v-loading="loading"
+         element-loading-text="拼命加载中"
+         element-loading-spinner="el-icon-loading"
+         :data="mv" style="height: 100%">
       <h2>mv 排行</h2>
       <ul>
         <li v-for="items in mv">
@@ -22,13 +25,15 @@ export default {
       url: 'http://ruidong.cloudno.de',
       hot: '',
       new1: '',
-      mv: ''
+      mv: '',
+      loading: true
     }
   },
   mounted: function () {
     let that = this
     $.get(this.url + '/top/mv?limit=100', function (data) {
       that.mv = data.data
+      that.loading = false
     })
   }
 }
@@ -38,6 +43,11 @@ export default {
   .bd>div{
     display: inline-block;
     vertical-align: top;
+    width: 100%;
+  }
+  .bd{
+    width: 100%;
+    height: calc(100% - 61px);
   }
   .bd img{
     /*width: 50%;*/

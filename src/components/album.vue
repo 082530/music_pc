@@ -1,8 +1,5 @@
 <template>
-  <div class="album">
-    <div v-if="list.length==0" class="box">
-      <img src="../assets/loading.gif" alt="">
-    </div>
+  <div class="album" v-loading="fullscreenLoading" style="height: calc(100% - 61px)">
     <div class="info">
       <div>
         <img :src="img+'?param=225x225'" alt="">
@@ -69,7 +66,8 @@ export default {
       description: '',
       img: '',
       h: '112px',
-      show: 1
+      show: 1,
+      fullscreenLoading: true
     }
   },
   methods: {
@@ -101,6 +99,7 @@ export default {
         that.pushlistTime = new Date(data.album.publishTime).toLocaleDateString()
         that.description = data.album.description
         that.img = data.album.picUrl
+        that.fullscreenLoading = false
       }
     )
   }

@@ -1,8 +1,5 @@
 <template>
   <div class="album">
-    <div v-if="list.length==0" class="box">
-      <img src="../assets/loading.gif" alt="">
-    </div>
     <div class="info">
       <div>
         <img :src="img" alt="">
@@ -22,7 +19,7 @@
       <span @click="h='';show=0" v-show="show"></span>
       <span @click="h='112px';show=1" v-show="!show"></span>
     </div>
-    <h3>播放列表&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14px">共{{list.length}}首歌</span></h3>
+    <h3>播放列表&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 14px">共{{list&&list.length}}首歌</span></h3>
     <div class="song">
       <table>
         <thead>
@@ -67,14 +64,15 @@ export default {
       list: '',
       author: '',
       alb: '',
-      publishTime: '',
+      pushlistTime: '',
       description: '',
       img: '',
       tags: '',
       h: '112px',
       show: 1,
       page_count: '',
-      now_page: 1
+      now_page: 1,
+      fullscreenLoading: false
     }
   },
   filters: {
@@ -96,12 +94,19 @@ export default {
       })
     },
     dt_list () {
+      window.scroll(0, 400)
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
       let that = this
-      that.list = null
       $.get(`${that.url}/dj/program?rid=${that.id}&offset=${(that.now_page - 1) * 30}`, function (data) {
         that.page_count = Math.ceil(data.count / 30)
-       // console.log(this.page_count)
+        // console.log(this.page_count)
         that.list = data.programs
+        loading.close()
       })
     }
   },

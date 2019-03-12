@@ -1,7 +1,9 @@
 <template>
     <div class="bd">
-      <keep-alive>
-        <div>
+        <div v-loading="loading"
+             element-loading-text="拼命加载中"
+             element-loading-spinner="el-icon-loading"
+             :data="list">
           <ul>
             <li v-for="items in list">
               <router-link :to="{name:'album',params:{id:items.al.id}}">
@@ -11,7 +13,6 @@
             </li>
           </ul>
         </div>
-      </keep-alive>
     </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
       url: 'http://ruidong.cloudno.de',
       // id: this.bd1,
       list: '',
+      loading: true
       // s: this.st
     }
   },
@@ -37,8 +39,10 @@ export default {
     add1 () {
       let that = this
       that.list = null
+      that.loading = true
       $.get(this.url + '/playlist/detail?id=' + that.bd1, function (data) {
         that.list = data.playlist.tracks
+        that.loading = false
       })
     }
   },
@@ -55,10 +59,14 @@ export default {
 </script>
 
 <style scoped>
+  .bd{
+    height: 100%;
+  }
 .bd>div{
   display: inline-block;
   vertical-align: top;
   width: 100%;
+  height: 100%;
 }
   .bd img{
     height: 100px;
